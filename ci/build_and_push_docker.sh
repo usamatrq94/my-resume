@@ -11,7 +11,7 @@ IMAGE_TAG="latest"
 ECR_REGISTRY="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
 
 # Docker build and tag the image
-# docker build -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" .
+docker build -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" .
 
 # Retrieve an ECR authentication token
 AWS_PASSWORD=$(aws ecr get-login-password --region "$AWS_REGION")  
