@@ -1,0 +1,312 @@
+{
+  "version": "32.0.0",
+  "artifacts": {
+    "MyResumeClusterStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "MyResumeClusterStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "MyResumeClusterStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "MyResumeClusterStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/81b6f67b7ab07379f01ce4669f91fd5a8e2cc3ead98a9bab540db5a8edd00e38.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "MyResumeClusterStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "MyResumeClusterStack.assets"
+      ],
+      "metadata": {
+        "/MyResumeClusterStack/my-resume/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresume2B92AB2D"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcEC96B592"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet1Subnet3498E53E"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet1RouteTable2953C14E"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet1RouteTableAssociation84A2FE76"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet1DefaultRoute66D09027"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet1EIP00DBEAA3"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet1NATGateway06A2E140"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet2SubnetF1BD9B3C"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet2RouteTable06C3AC3B"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet2RouteTableAssociation7CD86F83"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet2DefaultRouteEA6EB63D"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet2EIP4AF858CA"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPublicSubnet2NATGateway593831F5"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPrivateSubnet1Subnet35DBE262"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPrivateSubnet1RouteTableA156AB08"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPrivateSubnet1RouteTableAssociation3F219C3C"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPrivateSubnet1DefaultRouteDB774FC4"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPrivateSubnet2SubnetC5A21F95"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPrivateSubnet2RouteTable9724BCB6"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPrivateSubnet2RouteTableAssociation11BB7174"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcPrivateSubnet2DefaultRoute818605F7"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcIGW8D7A2B56"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcVPCGWC5AC1DFF"
+          }
+        ],
+        "/MyResumeClusterStack/my-resume-vpc/RestrictDefaultSecurityGroupCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "myresumevpcRestrictDefaultSecurityGroupCustomResource94EA0B36"
+          }
+        ],
+        "/MyResumeClusterStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+          }
+        ],
+        "/MyResumeClusterStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeCluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeCluster88B978B4"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeExecutionRole70902745"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeExecutionRoleDefaultPolicyEAD18C4F"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeTaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeTaskRoleE50E3365"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeTaskRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeTaskRoleDefaultPolicy473739CA"
+          }
+        ],
+        "/MyResumeClusterStack/MyLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyLogGroup5C0DAD85"
+          }
+        ],
+        "/MyResumeClusterStack/ChatBot/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatBot2054AFD1"
+          }
+        ],
+        "/MyResumeClusterStack/ChatBot/webservice": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'.",
+            "trace": [
+              "Annotations.addMessage (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1071)",
+              "Annotations.addWarning (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/core/lib/annotations.js:1:504)",
+              "RepositoryImage.bind (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/aws-ecs/lib/images/repository.js:1:1129)",
+              "new ContainerDefinition (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/aws-ecs/lib/container-definition.js:1:2908)",
+              "FargateTaskDefinition.addContainer (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/aws-ecs/lib/base/task-definition.js:1:9008)",
+              "/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:9769:105",
+              "Kernel._ensureSync (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:10358:28)",
+              "Kernel.invoke (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:9769:34)",
+              "KernelHost.processRequest (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:11544:36)",
+              "KernelHost.run (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:11504:22)",
+              "Immediate._onImmediate (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:11505:46)",
+              "process.processImmediate (node:internal/timers:476:21)"
+            ]
+          }
+        ],
+        "/MyResumeClusterStack/ResumeLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ResumeLogGroup9C06334A"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeSecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeSecurityGroup32DFCAD7"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeService0002C543"
+          }
+        ],
+        "/MyResumeClusterStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/MyResumeClusterStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/MyResumeClusterStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/MyResumeClusterStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "MyResumeClusterStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
