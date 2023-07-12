@@ -43,5 +43,5 @@ COPY resume ./resume
 EXPOSE 5050
 
 # Set the entrypoint to run the dashboard file with desired options
-CMD ["panel", "serve", "src/dashboard.py", "--show", "--autoreload", "--port", "5050"]
+CMD ["panel", "serve", "src/dashboard.py","--port", "5050", "--allow-websocket-origin=*"]
 
