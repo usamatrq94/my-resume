@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "my-resume"
+version = "0.1.0"
+description = ""
+authors = ["usama khan"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+ipykernel = "^6.24.0"
+requests = "^2.31.0"
+openai = "^0.27.8"
+langchain = "^0.0.227"
+pypdf = "^3.12.0"
+chromadb = "^0.3.26"
+tiktoken = "^0.4.0"
+unstructured = "^0.8.0"
+panel = "^1.2.0"
+jupyter-bokeh = "^3.0.7"
+markdown = "^3.4.3"
+boto3 = "^1.28.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.17.4"
+aws-cdk-aws-ec2 = "^1.204.0"
+aws-cdk-aws-ecs = "^1.204.0"
+aws-cdk-aws-iam = "^1.204.0"
+aws-cdk-aws-logs = "^1.204.0"
+aws-cdk-aws-s3 = "^1.204.0"
+aws-cdk-core = "^1.204.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
