@@ -1,0 +1,1 @@
+web: panel serve src/dashboard.py --port=$PORT --allow-websocket-origin=resume-chat.herokuapp.com
