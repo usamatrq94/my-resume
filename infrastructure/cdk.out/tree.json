@@ -725,6 +725,22 @@
               "version": "2.87.0"
             }
           },
+          "Param.Parameter": {
+            "id": "Param.Parameter",
+            "path": "MyResumeClusterStack/Param.Parameter",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.87.0"
+            }
+          },
+          "Param": {
+            "id": "Param",
+            "path": "MyResumeClusterStack/Param",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.87.0"
+            }
+          },
           "MyResumeCluster": {
             "id": "MyResumeCluster",
             "path": "MyResumeClusterStack/MyResumeCluster",
@@ -993,81 +1009,6 @@
               "version": "2.87.0"
             }
           },
-          "ChatBot": {
-            "id": "ChatBot",
-            "path": "MyResumeClusterStack/ChatBot",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "MyResumeClusterStack/ChatBot/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
-                  "aws:cdk:cloudformation:props": {
-                    "containerDefinitions": [
-                      {
-                        "essential": true,
-                        "image": "257033485100.dkr.ecr.ap-southeast-2.amazonaws.com/resume-chat:latest",
-                        "name": "webservice",
-                        "portMappings": [
-                          {
-                            "containerPort": 5050,
-                            "protocol": "tcp"
-                          }
-                        ],
-                        "logConfiguration": {
-                          "logDriver": "awslogs",
-                          "options": {
-                            "awslogs-group": {
-                              "Ref": "ResumeLogGroup9C06334A"
-                            },
-                            "awslogs-stream-prefix": "WebServiceContainer",
-                            "awslogs-region": {
-                              "Ref": "AWS::Region"
-                            }
-                          }
-                        }
-                      }
-                    ],
-                    "cpu": "256",
-                    "executionRoleArn": {
-                      "Fn::GetAtt": [
-                        "MyResumeExecutionRole70902745",
-                        "Arn"
-                      ]
-                    },
-                    "family": "MyResumeClusterStackChatBot92C4BBFA",
-                    "memory": "512",
-                    "networkMode": "awsvpc",
-                    "requiresCompatibilities": [
-                      "FARGATE"
-                    ],
-                    "taskRoleArn": {
-                      "Fn::GetAtt": [
-                        "MyResumeTaskRoleE50E3365",
-                        "Arn"
-                      ]
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ecs.CfnTaskDefinition",
-                  "version": "2.87.0"
-                }
-              },
-              "webservice": {
-                "id": "webservice",
-                "path": "MyResumeClusterStack/ChatBot/webservice",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
-                  "version": "2.87.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
-              "version": "2.87.0"
-            }
-          },
           "ResumeLogGroup": {
             "id": "ResumeLogGroup",
             "path": "MyResumeClusterStack/ResumeLogGroup",
@@ -1092,77 +1033,35 @@
               "version": "2.87.0"
             }
           },
-          "MyResumeSecurityGroup": {
-            "id": "MyResumeSecurityGroup",
-            "path": "MyResumeClusterStack/MyResumeSecurityGroup",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "MyResumeClusterStack/MyResumeSecurityGroup/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
-                  "aws:cdk:cloudformation:props": {
-                    "groupDescription": "MyResumeClusterStack/MyResumeSecurityGroup",
-                    "securityGroupEgress": [
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "description": "Allow all outbound traffic by default",
-                        "ipProtocol": "-1"
-                      }
-                    ],
-                    "securityGroupIngress": [
-                      {
-                        "cidrIp": "0.0.0.0/0",
-                        "ipProtocol": "tcp",
-                        "fromPort": 5050,
-                        "toPort": 5050,
-                        "description": "from 0.0.0.0/0:5050"
-                      }
-                    ],
-                    "vpcId": {
-                      "Ref": "myresumevpcEC96B592"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
-                  "version": "2.87.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
-              "version": "2.87.0"
-            }
-          },
           "MyResumeService": {
             "id": "MyResumeService",
             "path": "MyResumeClusterStack/MyResumeService",
             "children": {
-              "Service": {
-                "id": "Service",
-                "path": "MyResumeClusterStack/MyResumeService/Service",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ECS::Service",
-                  "aws:cdk:cloudformation:props": {
-                    "cluster": {
-                      "Ref": "MyResumeCluster88B978B4"
-                    },
-                    "deploymentConfiguration": {
-                      "maximumPercent": 200,
-                      "minimumHealthyPercent": 50,
-                      "alarms": {
-                        "alarmNames": [],
-                        "enable": false,
-                        "rollback": false
-                      }
-                    },
-                    "desiredCount": 1,
-                    "enableEcsManagedTags": false,
-                    "launchType": "FARGATE",
-                    "networkConfiguration": {
-                      "awsvpcConfiguration": {
-                        "assignPublicIp": "ENABLED",
+              "LB": {
+                "id": "LB",
+                "path": "MyResumeClusterStack/MyResumeService/LB",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "MyResumeClusterStack/MyResumeService/LB/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                      "aws:cdk:cloudformation:props": {
+                        "loadBalancerAttributes": [
+                          {
+                            "key": "deletion_protection.enabled",
+                            "value": "false"
+                          }
+                        ],
+                        "scheme": "internet-facing",
+                        "securityGroups": [
+                          {
+                            "Fn::GetAtt": [
+                              "MyResumeServiceLBSecurityGroupC7DF1EF4",
+                              "GroupId"
+                            ]
+                          }
+                        ],
                         "subnets": [
                           {
                             "Ref": "myresumevpcPublicSubnet1Subnet3498E53E"
@@ -1171,29 +1070,427 @@
                             "Ref": "myresumevpcPublicSubnet2SubnetF1BD9B3C"
                           }
                         ],
-                        "securityGroups": [
-                          {
-                            "Fn::GetAtt": [
-                              "MyResumeSecurityGroup32DFCAD7",
-                              "GroupId"
-                            ]
-                          }
-                        ]
+                        "type": "application"
                       }
                     },
-                    "taskDefinition": {
-                      "Ref": "ChatBot2054AFD1"
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnLoadBalancer",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "MyResumeClusterStack/MyResumeService/LB/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "MyResumeClusterStack/MyResumeService/LB/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "Automatically created Security Group for ELB MyResumeClusterStackMyResumeServiceLB7A420096",
+                            "securityGroupIngress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "ipProtocol": "tcp",
+                                "fromPort": 80,
+                                "toPort": 80,
+                                "description": "Allow from anyone on port 80"
+                              }
+                            ],
+                            "vpcId": {
+                              "Ref": "myresumevpcEC96B592"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "to MyResumeClusterStackMyResumeServiceSecurityGroupD4BB9B3D:5050": {
+                        "id": "to MyResumeClusterStackMyResumeServiceSecurityGroupD4BB9B3D:5050",
+                        "path": "MyResumeClusterStack/MyResumeService/LB/SecurityGroup/to MyResumeClusterStackMyResumeServiceSecurityGroupD4BB9B3D:5050",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
+                          "aws:cdk:cloudformation:props": {
+                            "groupId": {
+                              "Fn::GetAtt": [
+                                "MyResumeServiceLBSecurityGroupC7DF1EF4",
+                                "GroupId"
+                              ]
+                            },
+                            "ipProtocol": "tcp",
+                            "description": "Load balancer to target",
+                            "destinationSecurityGroupId": {
+                              "Fn::GetAtt": [
+                                "MyResumeServiceSecurityGroupF2E2EAB7",
+                                "GroupId"
+                              ]
+                            },
+                            "fromPort": 5050,
+                            "toPort": 5050
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupEgress",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "PublicListener": {
+                    "id": "PublicListener",
+                    "path": "MyResumeClusterStack/MyResumeService/LB/PublicListener",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "MyResumeClusterStack/MyResumeService/LB/PublicListener/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                          "aws:cdk:cloudformation:props": {
+                            "defaultActions": [
+                              {
+                                "type": "forward",
+                                "targetGroupArn": {
+                                  "Ref": "MyResumeServiceLBPublicListenerECSGroup98466648"
+                                }
+                              }
+                            ],
+                            "loadBalancerArn": {
+                              "Ref": "MyResumeServiceLB4AFC292B"
+                            },
+                            "port": 80,
+                            "protocol": "HTTP"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "ECSGroup": {
+                        "id": "ECSGroup",
+                        "path": "MyResumeClusterStack/MyResumeService/LB/PublicListener/ECSGroup",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "MyResumeClusterStack/MyResumeService/LB/PublicListener/ECSGroup/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                              "aws:cdk:cloudformation:props": {
+                                "healthCheckIntervalSeconds": 30,
+                                "healthCheckPath": "/health",
+                                "healthCheckTimeoutSeconds": 5,
+                                "healthyThresholdCount": 2,
+                                "matcher": {
+                                  "httpCode": "200"
+                                },
+                                "port": 80,
+                                "protocol": "HTTP",
+                                "targetGroupAttributes": [
+                                  {
+                                    "key": "stickiness.enabled",
+                                    "value": "false"
+                                  }
+                                ],
+                                "targetType": "ip",
+                                "unhealthyThresholdCount": 2,
+                                "vpcId": {
+                                  "Ref": "myresumevpcEC96B592"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
+                              "version": "2.87.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
+                      "version": "2.87.0"
                     }
                   }
                 },
                 "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ecs.CfnService",
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
+                  "version": "2.87.0"
+                }
+              },
+              "LoadBalancerDNS": {
+                "id": "LoadBalancerDNS",
+                "path": "MyResumeClusterStack/MyResumeService/LoadBalancerDNS",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "ServiceURL": {
+                "id": "ServiceURL",
+                "path": "MyResumeClusterStack/MyResumeService/ServiceURL",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.87.0"
+                }
+              },
+              "TaskDef": {
+                "id": "TaskDef",
+                "path": "MyResumeClusterStack/MyResumeService/TaskDef",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "MyResumeClusterStack/MyResumeService/TaskDef/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                      "aws:cdk:cloudformation:props": {
+                        "containerDefinitions": [
+                          {
+                            "essential": true,
+                            "image": "257033485100.dkr.ecr.ap-southeast-2.amazonaws.com/resume-chat:latest",
+                            "name": "web",
+                            "portMappings": [
+                              {
+                                "containerPort": 5050,
+                                "protocol": "tcp"
+                              }
+                            ],
+                            "logConfiguration": {
+                              "logDriver": "awslogs",
+                              "options": {
+                                "awslogs-group": {
+                                  "Ref": "ResumeLogGroup9C06334A"
+                                },
+                                "awslogs-stream-prefix": "WebServiceContainer",
+                                "awslogs-region": {
+                                  "Ref": "AWS::Region"
+                                }
+                              }
+                            },
+                            "environment": [
+                              {
+                                "name": "OPENAI_API_KEY",
+                                "value": {
+                                  "Ref": "ParamParameter"
+                                }
+                              },
+                              {
+                                "name": "BOKEH_ALLOW_WS_ORIGIN",
+                                "value": {
+                                  "Fn::GetAtt": [
+                                    "MyResumeServiceLB4AFC292B",
+                                    "DNSName"
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "cpu": "2048",
+                        "executionRoleArn": {
+                          "Fn::GetAtt": [
+                            "MyResumeExecutionRole70902745",
+                            "Arn"
+                          ]
+                        },
+                        "family": "MyResumeClusterStackMyResumeServiceTaskDefE446A1A8",
+                        "memory": "4096",
+                        "networkMode": "awsvpc",
+                        "requiresCompatibilities": [
+                          "FARGATE"
+                        ],
+                        "taskRoleArn": {
+                          "Fn::GetAtt": [
+                            "MyResumeTaskRoleE50E3365",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnTaskDefinition",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "web": {
+                    "id": "web",
+                    "path": "MyResumeClusterStack/MyResumeService/TaskDef/web",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
+                  "version": "2.87.0"
+                }
+              },
+              "Service": {
+                "id": "Service",
+                "path": "MyResumeClusterStack/MyResumeService/Service",
+                "children": {
+                  "Service": {
+                    "id": "Service",
+                    "path": "MyResumeClusterStack/MyResumeService/Service/Service",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                      "aws:cdk:cloudformation:props": {
+                        "cluster": {
+                          "Ref": "MyResumeCluster88B978B4"
+                        },
+                        "deploymentConfiguration": {
+                          "maximumPercent": 200,
+                          "minimumHealthyPercent": 50,
+                          "alarms": {
+                            "alarmNames": [],
+                            "enable": false,
+                            "rollback": false
+                          }
+                        },
+                        "desiredCount": 1,
+                        "enableEcsManagedTags": false,
+                        "healthCheckGracePeriodSeconds": 60,
+                        "launchType": "FARGATE",
+                        "loadBalancers": [
+                          {
+                            "targetGroupArn": {
+                              "Ref": "MyResumeServiceLBPublicListenerECSGroup98466648"
+                            },
+                            "containerName": "web",
+                            "containerPort": 5050
+                          }
+                        ],
+                        "networkConfiguration": {
+                          "awsvpcConfiguration": {
+                            "assignPublicIp": "DISABLED",
+                            "subnets": [
+                              {
+                                "Ref": "myresumevpcPrivateSubnet1Subnet35DBE262"
+                              },
+                              {
+                                "Ref": "myresumevpcPrivateSubnet2SubnetC5A21F95"
+                              }
+                            ],
+                            "securityGroups": [
+                              {
+                                "Fn::GetAtt": [
+                                  "MyResumeServiceSecurityGroupF2E2EAB7",
+                                  "GroupId"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "taskDefinition": {
+                          "Ref": "MyResumeServiceTaskDef50E9C1F2"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnService",
+                      "version": "2.87.0"
+                    }
+                  },
+                  "SecurityGroup": {
+                    "id": "SecurityGroup",
+                    "path": "MyResumeClusterStack/MyResumeService/Service/SecurityGroup",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "MyResumeClusterStack/MyResumeService/Service/SecurityGroup/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "groupDescription": "MyResumeClusterStack/MyResumeService/Service/SecurityGroup",
+                            "securityGroupEgress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "description": "Allow all outbound traffic by default",
+                                "ipProtocol": "-1"
+                              }
+                            ],
+                            "securityGroupIngress": [
+                              {
+                                "cidrIp": "0.0.0.0/0",
+                                "ipProtocol": "tcp",
+                                "fromPort": 5050,
+                                "toPort": 5050,
+                                "description": "from 0.0.0.0/0:5050"
+                              }
+                            ],
+                            "vpcId": {
+                              "Ref": "myresumevpcEC96B592"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                          "version": "2.87.0"
+                        }
+                      },
+                      "from MyResumeClusterStackMyResumeServiceLBSecurityGroupA23F9B2F:5050": {
+                        "id": "from MyResumeClusterStackMyResumeServiceLBSecurityGroupA23F9B2F:5050",
+                        "path": "MyResumeClusterStack/MyResumeService/Service/SecurityGroup/from MyResumeClusterStackMyResumeServiceLBSecurityGroupA23F9B2F:5050",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                          "aws:cdk:cloudformation:props": {
+                            "ipProtocol": "tcp",
+                            "description": "Load balancer to target",
+                            "fromPort": 5050,
+                            "groupId": {
+                              "Fn::GetAtt": [
+                                "MyResumeServiceSecurityGroupF2E2EAB7",
+                                "GroupId"
+                              ]
+                            },
+                            "sourceSecurityGroupId": {
+                              "Fn::GetAtt": [
+                                "MyResumeServiceLBSecurityGroupC7DF1EF4",
+                                "GroupId"
+                              ]
+                            },
+                            "toPort": 5050
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                          "version": "2.87.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+                      "version": "2.87.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.FargateService",
                   "version": "2.87.0"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ecs.FargateService",
+              "fqn": "aws-cdk-lib.aws_ecs_patterns.ApplicationLoadBalancedFargateService",
+              "version": "2.87.0"
+            }
+          },
+          "LoadBalancerDNS": {
+            "id": "LoadBalancerDNS",
+            "path": "MyResumeClusterStack/LoadBalancerDNS",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.87.0"
             }
           },

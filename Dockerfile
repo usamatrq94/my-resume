@@ -11,8 +11,7 @@ ENV PYTHONUNBUFFERED=1 \
     POETRY_HOME="/opt/poetry" \
     POETRY_VIRTUALENVS_CREATE=false \
     POETRY_NO_INTERACTION=1 \
-    PYSETUP_PATH="/opt/pysetup" \
-    BOKEH_ALLOW_WS_ORIGIN="*"
+    PYSETUP_PATH="/opt/pysetup"
 ENV PATH="$POETRY_HOME/bin:$PATH"
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 WORKDIR $PYSETUP_PATH
@@ -44,5 +43,4 @@ COPY resume ./resume
 EXPOSE 5050
 
 # Set the entrypoint to run the dashboard file with desired options
-CMD ["panel", "serve", "src/dashboard.py","--port", "5050", "--allow-websocket-origin=*"]
-
+CMD ["panel", "serve", "src/dashboard.py"" --address", "0.0.0.0", "--port", "5050"]

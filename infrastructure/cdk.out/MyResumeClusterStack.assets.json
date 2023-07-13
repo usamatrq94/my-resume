@@ -14,7 +14,7 @@
         }
       }
     },
-    "81b6f67b7ab07379f01ce4669f91fd5a8e2cc3ead98a9bab540db5a8edd00e38": {
+    "41a80b55fcdfe1c3164f38dc38ad8c901122d19323afbec22d8d5f35f6f17956": {
       "source": {
         "path": "MyResumeClusterStack.template.json",
         "packaging": "file"
@@ -22,7 +22,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "81b6f67b7ab07379f01ce4669f91fd5a8e2cc3ead98a9bab540db5a8edd00e38.json",
+          "objectKey": "41a80b55fcdfe1c3164f38dc38ad8c901122d19323afbec22d8d5f35f6f17956.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

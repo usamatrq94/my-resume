@@ -14,14 +14,14 @@ ECR_REGISTRY="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
 docker build -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" .
 
 # Retrieve an ECR authentication token
-AWS_PASSWORD=$(aws ecr get-login-password --region "$AWS_REGION")  
-echo "$AWS_PASSWORD" | docker login --username AWS --password-stdin "$ECR_REGISTRY"
+# AWS_PASSWORD=$(aws ecr get-login-password --region "$AWS_REGION")  
+# echo "$AWS_PASSWORD" | docker login --username AWS --password-stdin "$ECR_REGISTRY"
 
-# Tag the docker image
-docker tag $ECR_REPOSITORY:$IMAGE_TAG "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+# # Tag the docker image
+# docker tag $ECR_REPOSITORY:$IMAGE_TAG "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-# Push the image to ECR
-docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+# # Push the image to ECR
+# docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-# Logout from ECR
-docker logout "$ECR_REGISTRY"
+# # Logout from ECR
+# docker logout "$ECR_REGISTRY"

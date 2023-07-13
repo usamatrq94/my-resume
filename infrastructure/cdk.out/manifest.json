@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/81b6f67b7ab07379f01ce4669f91fd5a8e2cc3ead98a9bab540db5a8edd00e38.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/41a80b55fcdfe1c3164f38dc38ad8c901122d19323afbec22d8d5f35f6f17956.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -195,6 +195,12 @@
             "data": "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E"
           }
         ],
+        "/MyResumeClusterStack/Param.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ParamParameter"
+          }
+        ],
         "/MyResumeClusterStack/MyResumeCluster/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -231,48 +237,102 @@
             "data": "MyLogGroup5C0DAD85"
           }
         ],
-        "/MyResumeClusterStack/ChatBot/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ChatBot2054AFD1"
-          }
-        ],
-        "/MyResumeClusterStack/ChatBot/webservice": [
-          {
-            "type": "aws:cdk:warning",
-            "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'.",
-            "trace": [
-              "Annotations.addMessage (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1071)",
-              "Annotations.addWarning (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/core/lib/annotations.js:1:504)",
-              "RepositoryImage.bind (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/aws-ecs/lib/images/repository.js:1:1129)",
-              "new ContainerDefinition (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/aws-ecs/lib/container-definition.js:1:2908)",
-              "FargateTaskDefinition.addContainer (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-Oubf2Q/node_modules/aws-cdk-lib/aws-ecs/lib/base/task-definition.js:1:9008)",
-              "/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:9769:105",
-              "Kernel._ensureSync (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:10358:28)",
-              "Kernel.invoke (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:9769:34)",
-              "KernelHost.processRequest (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:11544:36)",
-              "KernelHost.run (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:11504:22)",
-              "Immediate._onImmediate (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmpimgm8_m7/lib/program.js:11505:46)",
-              "process.processImmediate (node:internal/timers:476:21)"
-            ]
-          }
-        ],
         "/MyResumeClusterStack/ResumeLogGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "ResumeLogGroup9C06334A"
           }
         ],
-        "/MyResumeClusterStack/MyResumeSecurityGroup/Resource": [
+        "/MyResumeClusterStack/MyResumeService/LB/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "MyResumeSecurityGroup32DFCAD7"
+            "data": "MyResumeServiceLB4AFC292B"
           }
         ],
-        "/MyResumeClusterStack/MyResumeService/Service": [
+        "/MyResumeClusterStack/MyResumeService/LB/SecurityGroup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "MyResumeService0002C543"
+            "data": "MyResumeServiceLBSecurityGroupC7DF1EF4"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/LB/SecurityGroup/to MyResumeClusterStackMyResumeServiceSecurityGroupD4BB9B3D:5050": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeServiceLBSecurityGrouptoMyResumeClusterStackMyResumeServiceSecurityGroupD4BB9B3D5050CA04EE9D"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeServiceLBPublicListener114913CD"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeServiceLBPublicListenerECSGroup98466648"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeServiceLoadBalancerDNS1C792608"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeServiceServiceURL92572F24"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeServiceTaskDef50E9C1F2"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/TaskDef/web": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'.",
+            "trace": [
+              "Annotations.addMessage (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-OtzvrJ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1071)",
+              "Annotations.addWarning (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-OtzvrJ/node_modules/aws-cdk-lib/core/lib/annotations.js:1:504)",
+              "RepositoryImage.bind (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-OtzvrJ/node_modules/aws-cdk-lib/aws-ecs/lib/images/repository.js:1:1129)",
+              "new ContainerDefinition (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-OtzvrJ/node_modules/aws-cdk-lib/aws-ecs/lib/container-definition.js:1:2908)",
+              "FargateTaskDefinition.addContainer (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-OtzvrJ/node_modules/aws-cdk-lib/aws-ecs/lib/base/task-definition.js:1:9008)",
+              "new ApplicationLoadBalancedFargateService (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/jsii-kernel-OtzvrJ/node_modules/aws-cdk-lib/aws-ecs-patterns/lib/fargate/application-load-balanced-fargate-service.js:1:1738)",
+              "Kernel._create (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmppe8orsgj/lib/program.js:9964:29)",
+              "Kernel.create (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmppe8orsgj/lib/program.js:9693:29)",
+              "KernelHost.processRequest (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmppe8orsgj/lib/program.js:11544:36)",
+              "KernelHost.run (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmppe8orsgj/lib/program.js:11504:22)",
+              "Immediate._onImmediate (/private/var/folders/kz/2cpb8g156f1bsq9pg39cbp200000gn/T/tmppe8orsgj/lib/program.js:11505:46)",
+              "process.processImmediate (node:internal/timers:476:21)"
+            ]
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeService33CEBB3C"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeServiceSecurityGroupF2E2EAB7"
+          }
+        ],
+        "/MyResumeClusterStack/MyResumeService/Service/SecurityGroup/from MyResumeClusterStackMyResumeServiceLBSecurityGroupA23F9B2F:5050": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResumeServiceSecurityGroupfromMyResumeClusterStackMyResumeServiceLBSecurityGroupA23F9B2F505070EC6F68"
+          }
+        ],
+        "/MyResumeClusterStack/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoadBalancerDNS"
           }
         ],
         "/MyResumeClusterStack/CDKMetadata/Default": [

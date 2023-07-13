@@ -9,6 +9,7 @@ from constructs import Construct
 from infrastructure.infrastructure_stack import MyResumeClusterStack
 
 app = cdk.App()
+
 MyResumeClusterStack(
     app,
     "MyResumeClusterStack",

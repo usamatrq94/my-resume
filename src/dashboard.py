@@ -1,7 +1,15 @@
 import markdown
 import panel as pn
+from flask import Flask
 
 from src.chatbot import ChatBot
+
+app = Flask(__name__)
+
+
+@app.route("/health")
+def health_check():
+    return "", 200
 
 
 def clear_input(event):

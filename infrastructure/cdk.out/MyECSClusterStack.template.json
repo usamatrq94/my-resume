@@ -758,11 +758,171 @@
     "aws:cdk:path": "MyECSClusterStack/MyLogGroup/Resource"
    }
   },
-  "ChatBot2054AFD1": {
+  "ResumeLogGroup9C06334A": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "MyECSClusterStack/ResumeLogGroup/Resource"
+   }
+  },
+  "MyResumeServiceLB4AFC292B": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "MyResumeServiceLBSecurityGroupC7DF1EF4",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     {
+      "Ref": "myresumevpcPublicSubnet1Subnet3498E53E"
+     },
+     {
+      "Ref": "myresumevpcPublicSubnet2SubnetF1BD9B3C"
+     }
+    ],
+    "Type": "application"
+   },
+   "DependsOn": [
+    "myresumevpcPublicSubnet1DefaultRoute66D09027",
+    "myresumevpcPublicSubnet1RouteTableAssociation84A2FE76",
+    "myresumevpcPublicSubnet2DefaultRouteEA6EB63D",
+    "myresumevpcPublicSubnet2RouteTableAssociation7CD86F83"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/LB/Resource"
+   }
+  },
+  "MyResumeServiceLBSecurityGroupC7DF1EF4": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Automatically created Security Group for ELB MyECSClusterStackMyResumeServiceLB96567911",
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow from anyone on port 80",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     }
+    ],
+    "VpcId": {
+     "Ref": "myresumevpcEC96B592"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/LB/SecurityGroup/Resource"
+   }
+  },
+  "MyResumeServiceLBSecurityGrouptoMyECSClusterStackMyResumeServiceSecurityGroup60C6C2D75050A4BEE904": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "GroupId": {
+     "Fn::GetAtt": [
+      "MyResumeServiceLBSecurityGroupC7DF1EF4",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "Description": "Load balancer to target",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "MyResumeServiceSecurityGroupF2E2EAB7",
+      "GroupId"
+     ]
+    },
+    "FromPort": 5050,
+    "ToPort": 5050
+   },
+   "Metadata": {
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/LB/SecurityGroup/to MyECSClusterStackMyResumeServiceSecurityGroup60C6C2D7:5050"
+   }
+  },
+  "MyResumeServiceLBPublicListener114913CD": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "MyResumeServiceLBPublicListenerECSGroup98466648"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "MyResumeServiceLB4AFC292B"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/LB/PublicListener/Resource"
+   }
+  },
+  "MyResumeServiceLBPublicListenerECSGroup98466648": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckIntervalSeconds": 30,
+    "HealthCheckPath": "/health",
+    "HealthCheckTimeoutSeconds": 5,
+    "HealthyThresholdCount": 2,
+    "Matcher": {
+     "HttpCode": "200"
+    },
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "UnhealthyThresholdCount": 2,
+    "VpcId": {
+     "Ref": "myresumevpcEC96B592"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/LB/PublicListener/ECSGroup/Resource"
+   }
+  },
+  "MyResumeServiceTaskDef50E9C1F2": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
      {
+      "Environment": [
+       {
+        "Name": "OPENAI_API_KEY",
+        "Value": {
+         "Ref": "ParamParameter"
+        }
+       },
+       {
+        "Name": "BOKEH_ALLOW_WS_ORIGIN",
+        "Value": {
+         "Fn::GetAtt": [
+          "MyResumeServiceLB4AFC292B",
+          "DNSName"
+         ]
+        }
+       }
+      ],
       "Essential": true,
       "Image": "257033485100.dkr.ecr.ap-southeast-2.amazonaws.com/resume-chat:latest",
       "LogConfiguration": {
@@ -777,7 +937,7 @@
         }
        }
       },
-      "Name": "webservice",
+      "Name": "web",
       "PortMappings": [
        {
         "ContainerPort": 5050,
@@ -786,15 +946,15 @@
       ]
      }
     ],
-    "Cpu": "256",
+    "Cpu": "2048",
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
       "MyResumeExecutionRole70902745",
       "Arn"
      ]
     },
-    "Family": "MyECSClusterStackChatBot3E95BE6D",
-    "Memory": "512",
+    "Family": "MyECSClusterStackMyResumeServiceTaskDefBD919F68",
+    "Memory": "4096",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
      "FARGATE"
@@ -807,24 +967,76 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "MyECSClusterStack/ChatBot/Resource"
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/TaskDef/Resource"
    }
   },
-  "ResumeLogGroup9C06334A": {
-   "Type": "AWS::Logs::LogGroup",
+  "MyResumeService33CEBB3C": {
+   "Type": "AWS::ECS::Service",
    "Properties": {
-    "RetentionInDays": 731
+    "Cluster": {
+     "Ref": "MyResumeCluster88B978B4"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "web",
+      "ContainerPort": 5050,
+      "TargetGroupArn": {
+       "Ref": "MyResumeServiceLBPublicListenerECSGroup98466648"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "MyResumeServiceSecurityGroupF2E2EAB7",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "myresumevpcPrivateSubnet1Subnet35DBE262"
+       },
+       {
+        "Ref": "myresumevpcPrivateSubnet2SubnetC5A21F95"
+       }
+      ]
+     }
+    },
+    "TaskDefinition": {
+     "Ref": "MyResumeServiceTaskDef50E9C1F2"
+    }
    },
-   "UpdateReplacePolicy": "Delete",
-   "DeletionPolicy": "Delete",
+   "DependsOn": [
+    "MyResumeServiceLBPublicListenerECSGroup98466648",
+    "MyResumeServiceLBPublicListener114913CD",
+    "MyResumeTaskRoleDefaultPolicy473739CA",
+    "MyResumeTaskRoleE50E3365"
+   ],
    "Metadata": {
-    "aws:cdk:path": "MyECSClusterStack/ResumeLogGroup/Resource"
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/Service/Service"
    }
   },
-  "MyResumeSecurityGroup32DFCAD7": {
+  "MyResumeServiceSecurityGroupF2E2EAB7": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "MyECSClusterStack/MyResumeSecurityGroup",
+    "GroupDescription": "MyECSClusterStack/MyResumeService/Service/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -845,70 +1057,96 @@
      "Ref": "myresumevpcEC96B592"
     }
    },
+   "DependsOn": [
+    "MyResumeTaskRoleDefaultPolicy473739CA",
+    "MyResumeTaskRoleE50E3365"
+   ],
    "Metadata": {
-    "aws:cdk:path": "MyECSClusterStack/MyResumeSecurityGroup/Resource"
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/Service/SecurityGroup/Resource"
    }
   },
-  "MyResumeService0002C543": {
-   "Type": "AWS::ECS::Service",
+  "MyResumeServiceSecurityGroupfromMyECSClusterStackMyResumeServiceLBSecurityGroup38F2BC1B5050D8E1A0A6": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Cluster": {
-     "Ref": "MyResumeCluster88B978B4"
+    "IpProtocol": "tcp",
+    "Description": "Load balancer to target",
+    "FromPort": 5050,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "MyResumeServiceSecurityGroupF2E2EAB7",
+      "GroupId"
+     ]
     },
-    "DeploymentConfiguration": {
-     "Alarms": {
-      "AlarmNames": [],
-      "Enable": false,
-      "Rollback": false
-     },
-     "MaximumPercent": 200,
-     "MinimumHealthyPercent": 50
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "MyResumeServiceLBSecurityGroupC7DF1EF4",
+      "GroupId"
+     ]
     },
-    "DesiredCount": 1,
-    "EnableECSManagedTags": false,
-    "LaunchType": "FARGATE",
-    "NetworkConfiguration": {
-     "AwsvpcConfiguration": {
-      "AssignPublicIp": "ENABLED",
-      "SecurityGroups": [
-       {
-        "Fn::GetAtt": [
-         "MyResumeSecurityGroup32DFCAD7",
-         "GroupId"
-        ]
-       }
-      ],
-      "Subnets": [
-       {
-        "Ref": "myresumevpcPublicSubnet1Subnet3498E53E"
-       },
-       {
-        "Ref": "myresumevpcPublicSubnet2SubnetF1BD9B3C"
-       }
-      ]
-     }
-    },
-    "TaskDefinition": {
-     "Ref": "ChatBot2054AFD1"
-    }
+    "ToPort": 5050
    },
    "DependsOn": [
     "MyResumeTaskRoleDefaultPolicy473739CA",
     "MyResumeTaskRoleE50E3365"
    ],
    "Metadata": {
-    "aws:cdk:path": "MyECSClusterStack/MyResumeService/Service"
+    "aws:cdk:path": "MyECSClusterStack/MyResumeService/Service/SecurityGroup/from MyECSClusterStackMyResumeServiceLBSecurityGroup38F2BC1B:5050"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22R0U/CMBDG/xbfSxUw0VdEJSTGNJvh1XTlGOe2lrRXCFn2v9uujBHj0/369Xr5vuuMPz/xhzt5chO1rSY1FrzNSaqKBem7dXPevnhVAbHlTifqGKgZbzcHFbWNWDLhixpV7gud+kbKjCf4kkUNoz5qC+eMQklo9LU5wttaxPIpaSUJTvLMhMVjwHHwWhPYwENDcnI5LSgk2DegieWgvEU6r6zxh97DrRCjON4ua+/CuHg94Lu0pYw2XfUKO9Q4mPyrGE0SNdgb7fI2B3tElYIn7BjKhreZSevoqzBhdb3/RB2rTRk8fZjy6nngrmMZOONtnBp8mmY8hnH/XwlrjrgNkcK2gcLflqjLPqrR295wx8SZ9kbfz/l0yh/vfhzixHpN2ADPUv0Fnd+YVygCAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31Sy27jMAz8lt4V7fYB7F7TbBsEKLpGUvRa0DLrsLElQ48UgeF/X0qKa6Mt9sThaCSSQ13J37/kzwt4dwtVHRYNlbLfeVAHwdRL765lfxvUAb1YveqMBoHqSvbPnYrcc7ESRSgbUrtQ6qyb0NYEj09QNjjxE7d0zigCT0Z/iCO42xQxPIJfg8d3OInC0pHh9PBGe7SMR0Hu5JwtPU+wb1F7sUMVLPnT2prQpR7+S9zVFp37Qm904uPkTvarJjiuHlUjvAdbQ5zKHf7gK2kaZ/rMGO2BNNoZd767Q3sklX3KcBAErey3JruXYmHY6TRuRoNoTM09PZj6Y6IRp3ZfOvDRKieXXcc3ktsPBqpbaEArrD6VxwacJ9WwokwK0vWR1/39bZvrzfK5jtgbfdaMeHb+xJV5g2Pbs3QYxBadCTb6wQ6bdkrZiO+PCmuOVMUSzqHnT1xz68kpsNDieWN/g+9C+kK8iyptYBDFye+N/nEtLy/lzcWbI1rYoD21KLc5/gN3fHc0KAMAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "MyECSClusterStack/CDKMetadata/Default"
    },
    "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Parameters": {
+  "ParamParameter": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "open_api_key"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Outputs": {
+  "MyResumeServiceLoadBalancerDNS1C792608": {
+   "Value": {
+    "Fn::GetAtt": [
+     "MyResumeServiceLB4AFC292B",
+     "DNSName"
+    ]
+   }
+  },
+  "MyResumeServiceServiceURL92572F24": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "http://",
+      {
+       "Fn::GetAtt": [
+        "MyResumeServiceLB4AFC292B",
+        "DNSName"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "LoadBalancerDNS": {
+   "Value": {
+    "Fn::GetAtt": [
+     "MyResumeServiceLB4AFC292B",
+     "DNSName"
+    ]
+   }
   }
  },
  "Conditions": {
@@ -1103,13 +1341,6 @@
      ]
     }
    ]
-  }
- },
- "Parameters": {
-  "BootstrapVersion": {
-   "Type": "AWS::SSM::Parameter::Value<String>",
-   "Default": "/cdk-bootstrap/hnb659fds/version",
-   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
   }
  },
  "Rules": {

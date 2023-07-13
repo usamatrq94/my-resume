@@ -21,6 +21,9 @@ jupyter-bokeh = "^3.0.7"
 markdown = "^3.4.3"
 boto3 = "^1.28.2"
 docker = "^6.1.3"
+aws-cdk-aws-ecs-patterns = "^1.204.0"
+aws-cdk-core = "^1.204.0"
+flask = "^2.3.2"
 
 
 [tool.poetry.group.dev.dependencies]

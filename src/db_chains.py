@@ -12,8 +12,6 @@ from langchain.text_splitter import (
 )
 from langchain.vectorstores import Chroma
 
-OPENAPI_KEY = "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"
-os.environ["OPENAI_API_KEY"] = OPENAPI_KEY
 MARKDOWN_PATH = "resume/resume.md"
 PRESISIT_DIRECTORY = "docs/chroma/"
 LLM_NAME = "gpt-3.5-turbo"
